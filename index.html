@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <script src="https://kit.fontawesome.com/3075c3c5e4.js" crossorigin="anonymous"></script>
+        <title>Rajkamal Youtube</title>
+
+        <style>
+            * {
+                font-family: sans-serif;
+            }
+
+            #container {
+                /* width: 95%;
+                margin: auto */
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                gap: 25px;
+                margin-top: 70px;
+
+            }
+
+            #navbar {
+                position: fixed;
+                top: 0;
+                width: 100%;
+
+                display: flex;
+                justify-content: space-between;
+                border-bottom: 1px solid rgb(204, 204, 204);
+                height: 56px;
+                margin-bottom: 100px;
+                background-color: white;
+
+
+            }
+
+            #menu-button {
+                font-size: 6px;
+
+
+            }
+
+            #search1 img {
+                width: 120px;
+                /* border: 1px solid red; */
+                height: 60px;
+                margin-top: -5px;
+            }
+
+            #last {
+                display: flex;
+                justify-content: space-between;
+                /* border: 1px solid red; */
+            }
+
+            #last img {
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+            }
+
+            #inp {
+                /* border: 1px solid red; */
+                width: 730px;
+                height: 40px;
+                margin-top: 6px;
+                margin-left: -40px;
+
+            }
+
+            #input {
+                width: 82%;
+                height: 87%;
+                border: 1px solid rgb(204, 204, 204)
+            }
+
+            #search {
+                height: 98%;
+                width: 8%;
+                margin-left: -5px;
+                background-color: #f8f8f8;
+                border: 1px solid rgb(204, 204, 204);
+                /* font-size: 18px; */
+            }
+
+            #inp>i:last-child {
+                /* border: 1px solid red; */
+                margin-left: 10px;
+                height: 78%;
+                /* border: 1px solid red; */
+                width: 5%;
+                text-align: center;
+                background-color: #f8f8f8;
+                padding-top: 10px;
+                font-size: 20px;
+                border-radius: 50%;
+                /* padding-bottom: 5px; */
+
+
+            }
+
+            #last {
+                width: 210px;
+                height: 40px;
+                margin-top: 8px;
+                margin-right: 40px;
+            }
+
+
+            #last i {
+                /* border: 1px solid red; */
+                font-size: 20px;
+                margin-top: 10px;
+
+                /* width: 20px; */
+            }
+
+            #menu-button i {
+                font-size: 6px;
+                margin-top: 0px;
+
+            }
+        </style>
+    </head>
+
+    <body>
+
+
+        <div id="navbar">
+            <div id="search1">
+                <img src="https://cdn.mos.cms.futurecdn.net/8gzcr6RpGStvZFA2qRt4v6.jpg" alt="">
+            </div>
+            <div id="inp">
+                <input type="text" name="" id="input" placeholder="Search">
+                <button id="search"><i class="fa-solid fa-magnifying-glass"></i></button>
+                <i class="fa-solid fa-microphone"></i>
+            </div>
+
+
+
+            <div id="last">
+                <div id="menu-button" style="margin-top: 10px">
+
+                    <div>
+                        <i class="fa-solid fa-square-full"></i>
+                        <i class="fa-solid fa-square-full"></i>
+                        <i class="fa-solid fa-square-full"></i>
+                    </div>
+                    <div>
+                        <i class="fa-solid fa-square-full"></i>
+                        <i class="fa-solid fa-square-full"></i>
+                        <i class="fa-solid fa-square-full"></i>
+                    </div>
+                    <div>
+                        <i class="fa-solid fa-square-full"></i>
+                        <i class="fa-solid fa-square-full"></i>
+                        <i class="fa-solid fa-square-full"></i>
+                    </div>
+                </div>
+
+                <i class="fa-solid fa-video"></i>
+                <i class="fa-solid fa-bell"></i>
+                <img src="https://icon2.cleanpng.com/20180319/epw/kisspng-india-login-computer-icons-emoticon-medicine-user-login-icon-5ab05c8bc2f8d1.4479395815215074677986.jpg"
+                    alt="">
+            </div>
+
+        </div>
+
+
+        <div id="container">
+
+        </div>
+    </body>
+
+</html>
+
+<script>
+
+
+
+    const homedata = () => {
+        getdata1()
+    }
+    document.querySelector("#search1").addEventListener("click", homedata)
+
+    const getdata1 = async () => {
+
+        try {
+
+            // const inp = document.querySelector("#input").value
+            // let res = await fetch(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&q=${inp}&key=AIzaSyBMMMzZWBIErJFeQmBJEcwnqnVQTkO1ulQ&maxResults=20`)
+            let res = await fetch(`https://youtube.googleapis.com/youtube/v3/videos?part=snippet&chart=mostPopular&maxResults=20&regionCode=IN&key=AIzaSyBMMMzZWBIErJFeQmBJEcwnqnVQTkO1ulQ`)
+
+            let data = await res.json()
+            console.log('data:', data.items)
+            displayData(data.items)
+
+        } catch (error) {
+            console.log('error:', error)
+
+        }
+
+
+    }
+
+    getdata1()
+
+
+
+    // console.log('inp:', inp)
+
+
+    const searchdata = () => {
+        document.querySelector("#container").innerHTML = ""
+        getdata()
+    }
+
+    document.querySelector("#search").addEventListener("click", searchdata)
+    const getdata = async () => {
+
+        try {
+
+            const inp = document.querySelector("#input").value
+            let res = await fetch(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&q=${inp}&key=AIzaSyBMMMzZWBIErJFeQmBJEcwnqnVQTkO1ulQ&maxResults=20`)
+
+
+            let data = await res.json()
+            console.log('data:', data.items)
+            displayData1(data.items)
+
+        } catch (error) {
+            console.log('error:', error)
+
+        }
+
+
+    }
+
+
+
+    const displayData = (data) => {
+        document.querySelector("#container").innerHTML = ""
+        data.map(({ id, snippet: { thumbnails: { high: { url } }, title ,channelTitle} }) => {
+
+            let div = document.createElement("div")
+
+            let div1 = document.createElement("div")
+            let image = document.createElement("img")
+            image.src = url
+            image.style.height = "100%"
+            image.style.width = "100%"
+            image.style.borderRadius = "5px"
+            image.addEventListener("click", playVideo)
+            function playVideo() {
+                window.location.href = `https://www.youtube.com/embed/${id}`
+            }
+            // let iframe = document.createElement("iframe")
+            // iframe.src = `https://www.youtube.com/embed/${elem.id.videoId}`
+            // iframe.allow = "fullscreen"
+
+            let name = document.createElement("p")
+            name.innerHTML = title
+            name.style.marginLeft = "10px"
+
+            let channel = document.createElement("p")
+            channel.innerHTML = channelTitle
+            channel.style.marginLeft = "10px"
+            channel.style.fontSize = "12px"
+
+            // channelTitle
+
+
+            div1.append(image)
+            div.append(div1, name,channel)
+            div.style.borderRadius = "5px"
+            div.style.boxShadow = "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px"
+
+            document.querySelector("#container").append(div)
+
+
+        })
+    }
+
+
+
+
+
+    const displayData1 = (data) => {
+        document.querySelector("#container").innerHTML = ""
+        data.map(({ id: { videoId }, snippet: { thumbnails: { high: { url } }, title,channelTitle } }) => {
+
+            let div = document.createElement("div")
+
+            let div1 = document.createElement("div")
+            let image = document.createElement("img")
+            image.src = url
+            image.style.height = "100%"
+            image.style.width = "100%"
+            image.style.borderRadius = "5px"
+            image.addEventListener("click", playVideo)
+            function playVideo() {
+                window.location.href = `https://www.youtube.com/embed/${videoId}`
+            }
+            // let iframe = document.createElement("iframe")
+            // iframe.src = `https://www.youtube.com/embed/${elem.id.videoId}`
+            // iframe.allow = "fullscreen"
+
+            let name = document.createElement("p")
+            name.innerHTML = title
+            name.style.marginLeft = "10px"
+
+            let channel = document.createElement("p")
+            channel.innerHTML = channelTitle
+            channel.style.marginLeft = "10px"
+            channel.style.fontSize = "12px"
+
+            div1.append(image)
+            div.append(div1, name,channel)
+
+            div.style.borderRadius = "5px"
+            div.style.boxShadow = "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px"
+
+
+            document.querySelector("#container").append(div)
+
+
+        })
+    }
+
+
+</script>
+
+
+
+<!-- https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=20&key=[YOUR_API_KEY]
+
+    https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=20&q=sunrise&key=AIzaSyBMMMzZWBIErJFeQmBJEcwnqnVQTkO1ulQ
+https://youtube.googleapis.com/youtube/v3/search?part=snippet&q=sunrise&key=AIzaSyBMMMzZWBIErJFeQmBJEcwnqnVQTkO1ulQ
+
+
+AIzaSyBMMMzZWBIErJFeQmBJEcwnqnVQTkO1ulQ
+ -->
+
+
+
+
+<!--   'https://youtube.googleapis.com/youtube/v3/videos?part=snippet&chart=mostPopular&maxResults=20&regionCode=IN&key=[YOUR_API_KEY]' \
+ -->
